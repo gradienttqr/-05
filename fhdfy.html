@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотостудия “Салют”</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; 
+            color: #fff; 
+            font-size: 30px; 
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        .image {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #ffa07a; 
+        }
+    </style>
+</head>
+<body>
+    <h1 class="header">Фотостудия “Салют”</h1>
+    <form id="rental-form">
+        <label for="full-name">ФИО:</label>
+        <input type="text" id="full-name" name="full-name" pattern="[а-яА-Яa-zA-Z ]+"><br><br>
+        <span class="error" id="full-name-error"></span>
+
+        <label for="phone-number">Номер телефона:</label>
+        <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]+"><br><br>
+        <span class="error" id="phone-number-error"></span>
+
+        <label for="email">Адрес электронной почты:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <span class="error" id="email-error"></span>
+
+        <label for="rental-date">Дата аренды:</label>
+        <input type="date" id="rental-date" name="rental-date"><br><br>
+        <span class="error" id="rental-date-error"></span>
+
+        <label for="rental-duration">Время аренды в днях:</label>
+        <input type="number" id="rental-duration" name="rental-duration" required><br><br>
+        <span class="error" id="rental-duration-error"></span>
+
+        <input type="submit" value="Отправить">
+    </form>
+
+    <div id="success-message"></div>
+
+    <img src="photo_5321520709912090503_y.jpg" alt="Image" class="image">
+
+    <script>
+     
+        const form = document.getElementById('rental-form');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('full-name');
+            const phoneNumber = document.getElementById('phone-number');
+            const email = document.getElementById('email');
+            const rentalDate = document.getElementById('rental-date');
+            const rentalDuration = document.getElementById('rental-duration');
+
+            const fullNameError = document.getElementById('full-name-error');
+            const phoneNumberError = document.getElementById('phone-number-error');
+            const emailError = document.getElementById('email-error');
+            const rentalDateError = document.getElementById('rental-date-error');
+            const rentalDurationError = document.getElementById('rental-duration-error');
+
+            const successMessage = document.getElementById('success-message');
+
+           
+            if (!fullName.value.match(/^[а-яА-Яa-zA-Z ]+$/)) {
+                fullNameError.textContent = 'Пожалуйста, введите ФИО, содержащее только буквы';
+            } else {
+                fullNameError.textContent = '';
+            }
+
+            if (!phoneNumber.value.match(/^[0-9]+$/)) {
+                phoneNumberError.textContent = 'Пожалуйста, введите номер телефона, содержащий только цифры';
+            } else {
+                phoneNumberError.textContent = '';
+            }
+
+            if (!email.value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+                emailError.textContent = 'Пожалуйста, введите корректный адрес электронной почты';
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (!rentalDate.value) {
+                rentalDateError.textContent = 'Пожалуйста, введите дату аренды';
+            } else {
+                rentalDateError.textContent = '';
+            }
+
+            if (!rentalDuration.value || rentalDuration.value <= 0) {
+                rentalDuration
